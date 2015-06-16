@@ -14,6 +14,7 @@
         @Html.Resource("By")
         @DataResolver.Resolve(@Model.Item.DataItem, "Author", null)
     </p>
+    @Html.CommentsCount(string.Empty, @Model.Item.DataItem)
 
     <p @Html.InlineEditingFieldAttributes("Description", "LongText")>@Html.Raw(Model.Item.Fields.Description)</p>
 
@@ -54,4 +55,6 @@
     {
         @Html.SocialShareOptions()
     }
+
+    @Html.CommentsList(@Model.Item.DataItem)
 </div>
