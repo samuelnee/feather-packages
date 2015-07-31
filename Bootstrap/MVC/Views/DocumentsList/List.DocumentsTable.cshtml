@@ -6,9 +6,7 @@
 
 <div class="@Model.CssClass">
 
-    <div class="sf-document-list sf-document-list--table">
-
-        <table class="table">
+    <table class="table">
             <thead>
                 <tr>
                     <td><strong>@Html.Resource("Title")</strong></td>
@@ -23,8 +21,8 @@
                     <td>
                         <i class="icon-file icon-txt icon-sm">
                             <span class="icon-txt-@(((DocumentItemViewModel)item).Extension)">@(((DocumentItemViewModel)item).Extension)</span>
-                        </i> 
-                        <a class="sf-title" href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage)">
+                        </i>
+                        <a class="sf-DocumentList-title" href="@HyperLinkHelpers.GetDetailPageUrl(item, ViewBag.DetailsPageId, ViewBag.OpenInSamePage)">
                             @item.Fields.Title
                         </a>
                     </td>
@@ -40,8 +38,6 @@
                 </tr>
             }
         </table>
-
-    </div>
 
 </div>
 

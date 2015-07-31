@@ -6891,7 +6891,7 @@ ul.sf-autocomplete {
     background: #fff;
     border-radius: 50%; }
 
-.sf-document-list--table .sf-title {
+.sf-DocumentList-title {
   margin-left: 10px; }
 
 .sf-ListExpandable i {
