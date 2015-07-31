@@ -3,14 +3,14 @@
 <div class="@Model.CssClass">
 		@if(!string.IsNullOrEmpty(Model.MediaUrl))
 		{
-			<div class="media sf-media sf-document-link">
+			<div class="media sf-DocumentLink">
 				<div class="left">
 						<i class="icon-file icon-txt icon-md">
 								<span class="icon-txt-@Model.Extension">@Model.Extension</span>
 						</i>
 				</div>
 
-				<div class="sf-media-body media-body">
+				<div class="media-body">
 					<div>
 						<a class="@String.Concat("sf", Model.Extension)" href="@Model.MediaUrl">@Model.Title</a>
 						<span>(@Model.Extension)</span>
