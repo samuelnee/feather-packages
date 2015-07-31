@@ -4,7 +4,7 @@
 @using Telerik.Sitefinity.Frontend.Mvc.Helpers;
 
 <div class="@Model.CssClass">
-    <ul class="sf-lang-selector list-inline">
+    <ul class="sf-LanguageSelector list-inline">
         @foreach (var language in Model.Languages)
         {
             <li>
@@ -26,7 +26,7 @@
 {
     if (Model.CurrentLanguage == culture)
     {
-        @Html.Raw("selected");
+        @Html.Raw("is--selected");
     }
 }
 

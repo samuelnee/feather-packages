@@ -6914,7 +6914,7 @@ ul.sf-autocomplete {
   font-size: 14px;
   padding: 8px 10px;
   border-radius: 8px; }
-  .sf-LanguageSelector a.selected {
+  .sf-LanguageSelector a.is--selected {
     background-color: #f2f2f2;
     color: #333; }
 
