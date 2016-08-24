@@ -10,17 +10,13 @@ The Bootstrap package contains front-end assets, widget template, grid widget te
  		- **css** - contains the processed css files
  			- **main.css** - this is output of the processed `main.scss` from `assets/src/project/sass`. This file contains Sitefinity, Bootstrap and project css
  			- **main.min.css** - this is the same as `main.css` but minified. This is the distributed css file which is linked in the package Razor layout file `MVC/Views/Layouts/default.cshtml`
- 			- **sitefinity.bootstrap.css** - this is the processed css file which contains the combined sitefinity and bootstrap css
- 			- **sitefinity.bootstrap.min.css** - minified `sitefinity.bootstrap.css`
- 			- **sitefinity.css** - this is output of the processed `sitefinity.scss` from `assets/src/sitefinity/sass`. This files contain Sitefinity css only
- 			- **sitefinity.min.css** - minified `sitefinity.css`
         - **fonts** - contains files for sitefinity and project icon font
         - **images** - contains compressed images from src folder which are usually used as background images in the css
         - **js** - contains a minified js file which is a concatenation of js files listed in `jsfiles.json`. To use this file add a reference to it in the package Razor layout file `MVC/Views/Layouts/default.cshtml`
  	- **src** - contains the source front-end files which are processed via grunt to dist folder
         - **sitefinity** - contains scss files for Sitefinity styling
  		- **project** - add your non-sitefinity front-end assets here
-            - **fonts** - contains files for project icon font
+            - **fonts** - fonts files added here will be copied to dist/fonts when you run `grunt`
  			- **icons** - add `svg` files here to be added to the icon font that is generated when grunt is run
  			- **images** - add images here. Images added in this folder will be compressed and output to `assets/dist/images`
  			- **js** - add js files here and list them in `jsfiles.json`. All js files listed in `jsfiles.json` will be concatenated and uglified to `assets/dist/js/project.min.js`
@@ -32,8 +28,15 @@ The Bootstrap package contains front-end assets, widget template, grid widget te
         |-- Bootstrap
         |---- assests
         |------ dist
+        |-------- css
+        |-------- fonts
+        |-------- images
+        |-------- js
         |------ src
         |-------- sitefinity
+        |---------- icons
+        |---------- images
+        |---------- sass
         |-------- project
         |---------- fonts
         |---------- icons
@@ -42,28 +45,29 @@ The Bootstrap package contains front-end assets, widget template, grid widget te
         |---------- sass
         |------------ main.scss
         ```
-        **! It is NOT recommended to rename the subfolders because they are used in gruntfile.js !**
+        **! It is NOT recommended to rename the subfolders because they are used in the gruntfile.js !**
  - **MVC folder** - contains all widget templates categorized by widget and the Razor layout file
  	- **Layouts/default.cshtml** - Razor layout file
  - **GridSystem** - contains grid widget templates
  - **csslint.json** - contains csslint options and globals
- - **gruntfile.js** - contains grunt tasks configuration and definition as well as load grunt plugins
+ - **gruntfile.js** - contains configuration and definition of grunt tasks and loads grunt plugins
  - **jsfiles.json** - contains a list of js files to be automatically concatenated and uglified when grunt is run
  - **package.json** - stores metadata for grunt and grunt plugins that the project needs
 
 ## Editing and creating a widget
 By default we include all widget templates in every package. Modifying a template is super easy. If you want to modify the Pills navigation template, just go to `/ResourcePackages/Bootstrap/MVC/Views/Navigation`, open the `NavigationView.Pills.cshtml` file and make your changes.
 
-Creating a new template is just as easy. Duplicate an existing template, give a name to the new file, keeping in mind the following structure - `NavigationView.XXXXXX.cshtml`. Then the new template will appear in the list of templates for this widget in the widget designer in Page editor.
+Creating a new template is just as easy. Duplicate an existing template, give a name to the new file, keeping in mind the following structure - `NavigationView.XXXXXX.cshtml`. Then the new template will appear in the list of templates for this widget in the widget designer in Page editor in Sitefinity backend.
 
 For widgets that have list and details views, the structure should be `List.XXXXXX.cshtml` or `Detail.XXXXXX.cshtml`, respectively.
 
-To create a new widget template for Dynamic content first create a folder with the name of the dynamic module in singular where you have organized the project widget templates (`/Mvc/Views/` or `/ResourcePackages/Bootstrap/MVC/Views`). After that create a `*.cshtml` files having in mind the structure described above List.XXXXXX.cshtml for list view and Detail.XXXXXX.cshtml for details view and write the markup of the template.
-When you create a new Dynamic module list and details widget templates are automatically created for this module in `Design > Widget Templates` in Sitefinity Backend. As a starting point, you can use the template from Sitefinity Backend and make the desired changes on the file system.
+To create a new widget template for Dynamic content first create a folder with the name of the dynamic module in singular in `/ResourcePackages/Bootstrap/MVC/Views`. After that create a `*.cshtml` files having in mind the structure described above List.XXXXXX.cshtml for list view and Detail.XXXXXX.cshtml for details view and write the markup of the template.
+When you create a new Dynamic module, list and details widget templates are automatically created for this module in `Design > Widget Templates` in Sitefinity backend. As a starting point, you can use the template from Sitefinity backend and make the desired changes on the file system.
 
 ## Editing and creating a grid widget
-By default we include the most popular column combinations as grid widgets. Modifying a grid widget template is super easy.  If you want to modify the grid widget with two equal columns go to `/ResourcePackages/Bootstrap/GridSystem/Templates`, open `grid-6+6.html` and make your changes.
-You can add an extra CSS class to a column, change the label of the field for adding CSS classes for this column in the grid widget designer in Page editor or change the name of a column's placeholder name in Page editor .
+By default we include the most popular column combinations as grid widgets. To change column css classes or add new css classes for different break points, for example, go to Page Editor in Sitefinity backend and use the grid widget designer.
+
+Modifying a grid widget template is super easy.  If you want to modify the grid widget with two equal columns go to `/ResourcePackages/Bootstrap/GridSystem/Templates`, open `grid-6+6.html` and make your changes. You can also add an extra CSS class to a column, change the label of the field for adding CSS classes for this column in the grid widget designer in Page editor or change the name of a column's placeholder name in Page editor .
 
 **Example:**
 ```
@@ -93,7 +97,7 @@ To make upgrades easier we recommend not to change default widget templates. If 
 
 ### Where to put project templates
 
-If you want to have the project's widget templates separated from the default widget templates you can place them in the MVC folder in the root `SitefinityWebApp` folder of your project `/Mvc/Views/`. It is easier to navigate and manage less files. The same can be done with grid widget templates. Project specific grid widget templates can be moved to `/GridSystem/Templates` in the root `SitefinityWebApp` folder of the project.
+If you want to have the project's widget templates separated from the default widget templates we recommend to move all default widget templates from `/ResourcePackages/Bootstrap/Mvc/Views/` of the package to `SitefinityWebApp/Mvc/Views/` and add project specific templates to `/ResourcePackages/Bootstrap/Mvc/Views/`. It is easier to navigate and manage less files.
 
 ## Responsive design ##
 
@@ -104,7 +108,6 @@ An exception is made for the Navigation widget. There is a possibility to transf
 In the navigation widget templates (e.g. `/Bootstrap/MVC/Views/Navigation/NavigationView.Horizontal.cshtml`) there is a helper method `@Html.Action("GetView", new { viewName = "Dropdown",  model= Model})` which renders the `<select>`. It's commented out by default, but if you want to, you can use it with combination with the responsive utility classes of Bootstrap.
 If you decide to use it, you can modify its markup in the `/Bootstrap/MVC/Views/Navigation/Dropdown.cshtml` file.
 
-
 ## Grunt
 ### Install
 Prerequisites: If you have not installed grunt yet refer to [Grunt gettings started documentation](http://gruntjs.com/getting-started) for details.
@@ -112,26 +115,7 @@ Prerequisites: If you have not installed grunt yet refer to [Grunt gettings star
 > npm install
 > grunt
 ```
-`grunt` executes the default grunt tasks and watches for any changes in the files after that.
-
-###Grunt tasks
-Currently grunt tasks are executed with the following command:
-```
- grunt –-target=single target or targets, separated by comma
-```
-
-Targets can be one of the following:
-- **sitefinity** – builds package resources and doesn’t include Bootstrap or project resources in the generated files
-- **sitefinityBootstrap** - builds package resources and includes Bootstrap in the generated files but does not include project resources
-- **project [default target]** – builds project specific resources, located in the project folder `/ResourcePackages/Bootstrap/assets/src/project`. If the name of this folder has to be changed, it has to be changed in the gruntfile as well. The name is assigned to `userAssetsFolder` variable.
-
-**Example:**
-```
- grunt –-target=sitefinityBootstrap,project
-```
-This will build package resources with Bootstrap, as well as project resources and will activate Watch task for those files.
-
-If target isn’t set, the default one is project
+`grunt` executes the default grunt tasks and watches for changes in the scss files, js files and images. If you have added new sprite images or svg files for the webfont task you will need to run `grunt` again.
 
 ## Where to put project front-end assets
 All project specific front-end assets like scss, images, js, fonts, etc. should be placed in `assets/src/project`. When the default grunt task is run all source files are processed and moved to `assets/dist` from where there are used in the project.
@@ -152,8 +136,15 @@ File structure
 ...
 
 main.scss
-// Sitefinity + Bootstrap CSS
-@import "../../sitefinity/sass/sitefinity.bootstrap.scss";
+```
+//Import Bootstrap from npm
+@import "../../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap.scss";
+@import "../../../../node_modules/magnific-popup/src/css/main.scss";
+
+// Sitefinity
+@import "../../sitefinity/sass/components/icons/sf-icon-font";
+@import "../../sitefinity/sass/widgets/socialShare/sf-sprite";
+@import "../../sitefinity/sass/sitefinity.scss";
 
 //Import .scss files here
 @import "setting/colors";
@@ -164,13 +155,23 @@ main.scss
 ...
 ```
 When you run grunt all scss files imported in `assets/src/project/sass/main.scss` will be processed and output in `assets/dist/css/main.css`
-If you don't want to include Sitefinity or Bootstrap css or you want to use another Bootstrap version change the import rule `@import "../../sitefinity/sass/sitefinity.bootstrap.scss";` in `assets/src/project/sass/main.scss`.
-If you run grunt with sitefinity or sitefinityBootstrap target `assets/src/sitefinity/sass/sitefinity.scss` or `assets/src/sitefinity/sass/sitefinity.bootstrap.scss` will be processed and output to `assets/dist/css/sitefinity.css` or `assets/dist/css/sitefinity.bootstrap.css` respectively.
+If you don't want to include Bootstrap or Sitefinity css delete the import rules that you don't need in `assets/src/project/sass/main.scss`.
+- Imports Bootstrap
+  @import "../../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap.scss";
+- Imports the styling of magnific-popup plugin used in some media gallery templates
+  @import "../../../../node_modules/magnific-popup/src/css/main.scss";
+- Imports css for icon webfont generated from svg files added in `assets/src/project/icons`
+  @import "../../sitefinity/sass/components/icons/sf-icon-font";
+- Imports css for sprite image generated from png files added in `assets/src/project/images/sprite/`
+  @import "../../sitefinity/sass/widgets/socialShare/sf-sprite";
+- Imports all Sitefinity css for default widgets
+  @import "../../sitefinity/sass/sitefinity.scss";
+
 ### Images
-Place all images in `assets/src/project/images`. After grunt is run all images from this folder will be compressed and moved to `assets/dist/images`.
+Place all images in `assets/src/project/images`. After grunt is run all images from this folder will be compressed and moved to `assets/dist/images`. Grunt will also watch for changes in this folder so if you add a new image or change an existing one the new image will be compressed and moved to `assets/dist/images`
 
 ### Javascript
-Place all your js files in `assets/src/project/js`. It is always best to load one js file to reduce requests to the server and speed up your site. Therefore we provide a mechanism to easily concatenate and uglify all project js files into one file.
+Place all your js files in `assets/src/project/js`. It is always better to load one js file to reduce requests to the server and speed up your site. Therefore we provide a mechanism to easily concatenate and uglify all project js files into one file.
 
 In `jsfiles.json` define the order in which the project's js files will be concatenated and uglified. After you run grunt all js files listed in `jsfiles.json` will be processed and output to `assets/dist/js/project.min.js`.
 
@@ -190,7 +191,7 @@ In `jsfiles.json` define the order in which the project's js files will be conca
 ```
 
 ###Icons
-Place all svg files that you want to use as icon via an icon font in `assets/src/project/icons`. The icon font will be created the first time grunt is run. If you add new svg files you will have to run the task manually (`grunt webfont`) or rerun default grunt task.
+Place all svg files that you want to use as icons via an icon font in `assets/src/project/icons`. The icon font will be created the first time grunt is run. If you add new svg files you will have to run the task manually (`grunt webfont`) or run default grunt task again.
 Two css classes will be generated for each icon. If the name of the svg file is logo.svg, the names of the css classes will be:
 - `icon-logo` - icon is displayed before Company name
 `<span class="icon-logo">Company name</span>`
@@ -198,12 +199,12 @@ Two css classes will be generated for each icon. If the name of the svg file is 
 `<span class="icon-item-logo">Company name</span>`
 
 ## Upgrade recommendations
-- If you work on a copy of Bootstrap, e.g. BootstrapCustom
+- If you work on a copy of Bootstrap, e.g. Timer
     - Upgrade Bootstrap package
-    - Merge changes from Bootstrap to BootstrapCustom manually
+    - Merge changes from Bootstrap to Timer manually
 - If you work on Bootstrap package directly
 	- Before upgrade make a copy of Bootstrap package to another location
 	- Upgrade Bootstrap package
 	- Merge conflicts
 		- If you use a source control, merge the changes using the source control
-		- If you don't use a source control, merge the changes from the copy of the Bootstrap package to the Bootstrap package manually
+		- If you don't use a source control, merge the changes from the copy of the Bootstrap package to the Bootstrap package manually using differencing and merging tool.

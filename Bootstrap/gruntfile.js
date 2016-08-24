@@ -17,13 +17,6 @@ module.exports = function(grunt) {
     // Rename this folder if needed
     var projectAssetsFolder = "project";
 
-    // Check targets against which the grunt tasks are run - sitefinity, sitefinityBootstrap or project
-    // sitefinity - builds only Sitefinity assets
-    // sitefinityBootstrap - builds Sitefinity + Bootstrap assets
-    // project [default] - builds Sitefinity + Bootstrap + project assets
-    // var options,
-    //     target = grunt.option("target");
-
     // Options needed for webfont task.
     // Starting code point for Sitefinity font icons.
     var sfCodePoints = {
@@ -48,12 +41,6 @@ module.exports = function(grunt) {
         descent: 0,
         autoHint: false
     }
-
-    // if (target) {
-    //     options = target.split(",");
-    // } else {
-    //     options = ["project"];
-    // }
 
     // Load all grunt tasks
     require('load-grunt-tasks')(grunt);
@@ -81,7 +68,7 @@ module.exports = function(grunt) {
                     src: [
                         '<%= dist.path %>/**/*.css',
                         '<%= dist.path %>/**/*.js',
-                        '<%= dist.path %>/**/*.{png,jpg,gif,jpeg}',
+                        '<%= dist.path %>/**/*.{png,jpg,gif,jpeg,svg}',
                         'csslint_report'
                     ]
                 }]
@@ -96,7 +83,7 @@ module.exports = function(grunt) {
             images: {
                 files: [{
                     src: [
-                        '<%= dist.path %>/**/*.{png,jpg,gif,jpeg}'
+                        '<%= dist.path %>/**/*.{png,jpg,gif,jpeg,svg}'
                     ]
                 }]
             }
@@ -167,7 +154,7 @@ module.exports = function(grunt) {
         },
 
         // Concatenates & minifies js files
-        // Processes the files described in 'jsfiles.json' + bootstrap.js
+        // Processes the files described in 'jsfiles.json'
         uglify: {
             options: {
                 report: 'gzip',
@@ -218,7 +205,7 @@ module.exports = function(grunt) {
                 tasks: ['sass', 'csslint:dev', 'cssmin']
             },
             images: {
-                files: ['<%= src.path %>/**/*.{png,jpg,gif,jpeg}'],
+                files: ['<%= src.path %>/**/*.{png,jpg,gif,jpeg,svg}'],
                 tasks: ['clean:images', 'sprite', 'imagemin']
             },
             js: {
