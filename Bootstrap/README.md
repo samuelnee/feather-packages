@@ -61,7 +61,7 @@ Creating a new template is just as easy. Duplicate an existing template, give a 
 
 For widgets that have list and details views, the structure should be `List.XXXXXX.cshtml` or `Detail.XXXXXX.cshtml`, respectively.
 
-To create a new widget template for Dynamic content first create a folder with the name of the dynamic module in singular in `/ResourcePackages/Bootstrap/MVC/Views`. After that create a `*.cshtml` files having in mind the structure described above List.XXXXXX.cshtml for list view and Detail.XXXXXX.cshtml for details view and write the markup of the template.
+To create a new widget template for Dynamic content first create a folder with the name of the dynamic module in singular in `/ResourcePackages/Bootstrap/MVC/Views`. After that create a `*.cshtml` files having in mind the structure described above `List.XXXXXX.cshtml` for list view and `Detail.XXXXXX.cshtml` for details view and write the markup of the template.
 When you create a new Dynamic module, list and details widget templates are automatically created for this module in `Design > Widget Templates` in Sitefinity backend. As a starting point, you can use the template from Sitefinity backend and make the desired changes on the file system.
 
 ## Editing and creating a grid widget
@@ -70,7 +70,7 @@ By default we include the most popular column combinations as grid widgets. To c
 Modifying a grid widget template is super easy.  If you want to modify the grid widget with two equal columns go to `/ResourcePackages/Bootstrap/GridSystem/Templates`, open `grid-6+6.html` and make your changes. You can also add an extra CSS class to a column, change the label of the field for adding CSS classes for this column in the grid widget designer in Page editor or change the name of a column's placeholder name in Page editor .
 
 **Example:**
-```
+```html
 <div class="row" data-sf-element="Row">
     <div class="sf_colsIn col-md-6 **EXTRA_CSS_CLASS**" data-sf-element="**NEW_COLUMN_1_CSS_CLASS_FIELD_LABEL**" data-placeholder-label="**NEW_COLUMN_1_PLACEHOLDER_NAME**">
     </div>
@@ -83,8 +83,8 @@ Don't remove `sf_colsIn`. It is a system css classed which indicates where a pla
 Creating a new grid widget is just as easy.
 Duplicate an existing grid widget template, give a name to the new file. Then the new grid widget will appear in the list of grid widgets in the Layout tab in Page editor.
 
-**Example:** To create a simple placeholder with &lt;section&gt; tag create `section.html` in `/ResourcePackages/Bootstrap/GridSystem/Templates/`
-```
+**Example:** To create a simple placeholder with `<section>` tag create `section.html` in `/ResourcePackages/Bootstrap/GridSystem/Templates/`
+```html
 	<section class="section" data-sf-element="Section" data-placeholder-label="Section">
 	</section>
 ```
@@ -111,7 +111,7 @@ If you decide to use it, you can modify its markup in the `/Bootstrap/MVC/Views/
 ## Grunt
 ### Install
 Prerequisites: If you have not installed grunt yet refer to [Grunt gettings started documentation](http://gruntjs.com/getting-started) for details.
-```
+```sh
 > npm install
 > grunt
 ```
@@ -134,19 +134,24 @@ File structure
 |--- _link.scss
 |--- _typography.scss
 ...
-
-main.scss
+|-- main.scss
 ```
-//Import Bootstrap from npm
+
+- Import Bootstrap from npm
+```css
 @import "../../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap.scss";
 @import "../../../../node_modules/magnific-popup/src/css/main.scss";
+```
 
-// Sitefinity
+- Sitefinity
+```css
 @import "../../sitefinity/sass/components/icons/sf-icon-font";
 @import "../../sitefinity/sass/widgets/socialShare/sf-sprite";
 @import "../../sitefinity/sass/sitefinity.scss";
+```
 
-//Import .scss files here
+- Import .scss files here
+```css
 @import "setting/colors";
 @import "setting/typography";
 ...
@@ -156,17 +161,27 @@ main.scss
 ```
 When you run grunt all scss files imported in `assets/src/project/sass/main.scss` will be processed and output in `assets/dist/css/main.css`
 If you don't want to include Bootstrap or Sitefinity css delete the import rules that you don't need in `assets/src/project/sass/main.scss`.
-- Imports Bootstrap
-  @import "../../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap.scss";
-- Imports the styling of magnific-popup plugin used in some media gallery templates
-  @import "../../../../node_modules/magnific-popup/src/css/main.scss";
-- Imports css for icon webfont generated from svg files added in `assets/src/project/icons`
-  @import "../../sitefinity/sass/components/icons/sf-icon-font";
-- Imports css for sprite image generated from png files added in `assets/src/project/images/sprite/`
-  @import "../../sitefinity/sass/widgets/socialShare/sf-sprite";
-- Imports all Sitefinity css for default widgets
-  @import "../../sitefinity/sass/sitefinity.scss";
 
+- Imports Bootstrap
+```css
+  @import "../../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap.scss";
+```
+- Imports the styling of magnific-popup plugin used in some media gallery templates
+```css
+  @import "../../../../node_modules/magnific-popup/src/css/main.scss";
+```
+- Imports css for icon webfont generated from svg files added in `assets/src/project/icons`
+```css
+  @import "../../sitefinity/sass/components/icons/sf-icon-font";
+```
+- Imports css for sprite image generated from png files added in `assets/src/project/images/sprite/`
+```css
+  @import "../../sitefinity/sass/widgets/socialShare/sf-sprite";
+```
+- Imports all Sitefinity css for default widgets
+```css
+  @import "../../sitefinity/sass/sitefinity.scss";
+```
 ### Images
 Place all images in `assets/src/project/images`. After grunt is run all images from this folder will be compressed and moved to `assets/dist/images`. Grunt will also watch for changes in this folder so if you add a new image or change an existing one the new image will be compressed and moved to `assets/dist/images`
 
@@ -176,7 +191,7 @@ Place all your js files in `assets/src/project/js`. It is always better to load 
 In `jsfiles.json` define the order in which the project's js files will be concatenated and uglified. After you run grunt all js files listed in `jsfiles.json` will be processed and output to `assets/dist/js/project.min.js`.
 
 **jsfiles.json**
-```
+```json
 {
 	"concatJsFiles": [
         "assets/src/project/js/project-file-1.js",
@@ -186,11 +201,11 @@ In `jsfiles.json` define the order in which the project's js files will be conca
 ```
 
 **Example:** To load `project.min.js` open the project Razor layout file (`MVC/Views/Layouts/default.cshtml`) and add a reference there.
-```
+```csharp
 	@Html.Script(Url.Content("~/ResourcePackages/Bootstrap/assets/dist/js/project.min.js"), "bottom")
 ```
 
-###Icons
+### Icons
 Place all svg files that you want to use as icons via an icon font in `assets/src/project/icons`. The icon font will be created the first time grunt is run. If you add new svg files you will have to run the task manually (`grunt webfont`) or run default grunt task again.
 Two css classes will be generated for each icon. If the name of the svg file is logo.svg, the names of the css classes will be:
 - `icon-logo` - icon is displayed before Company name
