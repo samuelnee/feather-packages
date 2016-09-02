@@ -126,7 +126,7 @@ module.exports = function(grunt) {
 
         webfont: {
             icons: {
-                src: ['assets/src/sitefinity/icons/*.svg', 'assets/src/project/icons/*.svg'],
+                src: ['assets/src/sitefinity/icons/*.svg', 'assets/src/' + projectAssetsFolder + '/icons/*.svg'],
                 dest: 'assets/dist/fonts/',
                 destCss: 'assets/src/sitefinity/sass/components/icons/',
                 options: webFontOptions
@@ -148,7 +148,7 @@ module.exports = function(grunt) {
             dist: {
                 files: [
                     { expand: true, src: ['node_modules/bootstrap-sass/assets/fonts/bootstrap/*'], dest: 'assets/dist/fonts/bootstrap/', flatten: true, filter: 'isFile' },
-                    { expand: true, cwd: 'assets/src/project/fonts', src: '**', dest: 'assets/dist/fonts/'}
+                    { expand: true, cwd: 'assets/src/' + projectAssetsFolder + '/fonts', src: '**', dest: 'assets/dist/fonts/'}
                 ]
             }
         },
@@ -188,7 +188,7 @@ module.exports = function(grunt) {
         // Sprite generation
         sprite: {
             dist: {
-                src: ['assets/src/sitefinity/images/sprite/*.png', 'assets/src/project/images/sprite/*.png'],
+                src: ['assets/src/sitefinity/images/sprite/*.png', 'assets/src/' + projectAssetsFolder + '/images/sprite/*.png'],
                 dest: 'assets/src/sitefinity/images/sprite.png',
                 destCss: 'assets/src/sitefinity/sass/widgets/socialShare/_sf-sprite.scss',
                 imgPath: '../images/sprite.png',
